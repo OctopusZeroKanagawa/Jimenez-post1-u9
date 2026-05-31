@@ -1,0 +1,354 @@
+/* ============================================================
+   Estilos globales - Unidad 9 Seguridad Web
+   Autor: Andres Felipe Jimenez Ramirez
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
+
+:root {
+    --bg:        #0f1117;
+    --surface:   #1a1d27;
+    --border:    #2a2e42;
+    --accent:    #4f8ef7;
+    --accent-h:  #3a7aee;
+    --danger:    #e05c5c;
+    --success:   #4caf7d;
+    --warning:   #f5a623;
+    --text:      #e2e6f0;
+    --muted:     #6b7280;
+    --radius:    8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* ---- Centrado de formularios de auth ---- */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: radial-gradient(ellipse at 60% 20%, #1a2540 0%, var(--bg) 60%);
+}
+
+.auth-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+
+.auth-card h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+}
+
+.auth-card .subtitle {
+    color: var(--muted);
+    font-size: 0.875rem;
+    margin-bottom: 1.8rem;
+}
+
+/* ---- Formularios ---- */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,142,247,0.15);
+}
+
+.form-group .error-msg {
+    font-size: 0.78rem;
+    color: var(--danger);
+    margin-top: 0.3rem;
+}
+
+/* ---- Botones ---- */
+.btn {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    border-radius: var(--radius);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background 0.18s, transform 0.12s;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #fff;
+    width: 100%;
+    text-align: center;
+}
+.btn-primary:hover { background: var(--accent-h); transform: translateY(-1px); }
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+.btn-danger:hover { opacity: 0.88; }
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---- Alertas ---- */
+.alert {
+    padding: 0.65rem 0.9rem;
+    border-radius: var(--radius);
+    font-size: 0.86rem;
+    margin-bottom: 1rem;
+    border-left: 3px solid;
+}
+.alert-error   { background: rgba(224,92,92,0.1);  border-color: var(--danger);  color: #f09090; }
+.alert-success { background: rgba(76,175,125,0.1); border-color: var(--success); color: #80d4a8; }
+.alert-info    { background: rgba(79,142,247,0.1); border-color: var(--accent);  color: #90baff; }
+
+.auth-footer {
+    margin-top: 1.4rem;
+    text-align: center;
+    font-size: 0.86rem;
+    color: var(--muted);
+}
+
+.auth-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ============================================================
+   Dashboard / Admin Layout
+   ============================================================ */
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 56px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.topbar .brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.topbar .nav-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.topbar .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.86rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius);
+    transition: background 0.15s, color 0.15s;
+}
+
+.topbar .nav-links a:hover {
+    background: var(--border);
+    color: var(--text);
+}
+
+.topbar form { margin: 0; }
+
+.main-content {
+    padding: 2.5rem 2rem;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* ---- Tarjetas de info en dashboard ---- */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+}
+
+.info-card .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+}
+
+.info-card .value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--text);
+    word-break: break-all;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-admin { background: rgba(245,166,35,0.15);  color: var(--warning); border: 1px solid rgba(245,166,35,0.3); }
+.badge-user  { background: rgba(79,142,247,0.15);  color: var(--accent);  border: 1px solid rgba(79,142,247,0.3); }
+
+/* ---- Tabla de usuarios (admin) ---- */
+.table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-top: 1.5rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+thead {
+    background: var(--border);
+}
+
+thead th {
+    padding: 0.7rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+}
+
+tbody tr {
+    border-top: 1px solid var(--border);
+    transition: background 0.1s;
+}
+
+tbody tr:hover { background: rgba(255,255,255,0.025); }
+
+tbody td {
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.83rem;
+}
+
+.status-active   { color: var(--success); }
+.status-inactive { color: var(--danger); }
+
+/* ---- Page title ---- */
+.page-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+}
+
+.page-subtitle {
+    color: var(--muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+}
+
+/* ---- Admin access section ---- */
+.admin-section {
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    border: 1px solid rgba(245,166,35,0.25);
+    background: rgba(245,166,35,0.05);
+    border-radius: var(--radius);
+}
+
+.admin-section p {
+    margin-bottom: 0.8rem;
+    font-size: 0.875rem;
+    color: var(--warning);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+    .topbar { padding: 0 1rem; }
+    .main-content { padding: 1.5rem 1rem; }
+    .auth-card { padding: 1.8rem 1.2rem; }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="app-layout">
+
+    <!-- Barra de navegación -->
+    <nav class="topbar">
+        <span class="brand">seguridad_web / admin</span>
+        <div class="nav-links">
+            <a th:href="@{/dashboard}">Dashboard</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-danger"
+                        style="padding:0.3rem 0.8rem; font-size:0.82rem;">
+                    Cerrar sesión
+                </button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="main-content">
+
+        <h1 class="page-title">Panel de Administración</h1>
+        <p class="page-subtitle">
+            Sesión activa como: <strong sec:authentication="name">admin</strong>
+            &nbsp;<span class="badge badge-admin">ADMIN</span>
+        </p>
+
+        <hr class="divider"/>
+
+        <p style="font-size:0.875rem; color:var(--muted); margin-bottom:0.5rem;">
+            Total de usuarios registrados:
+            <strong th:text="${usuarios.size()}" style="color:var(--text);">0</strong>
+        </p>
+
+        <!-- Tabla de todos los usuarios -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="u : ${usuarios}">
+                        <td th:text="${u.id}">1</td>
+                        <td th:text="${u.nombre}">Nombre</td>
+                        <td th:text="${u.email}">correo@ej.com</td>
+                        <td>
+                            <span class="badge badge-admin"
+                                  th:if="${u.rol == 'ROLE_ADMIN'}">ADMIN</span>
+                            <span class="badge badge-user"
+                                  th:if="${u.rol == 'ROLE_USER'}">USER</span>
+                        </td>
+                        <td>
+                            <span class="status-active"  th:if="${u.activo}">● Activo</span>
+                            <span class="status-inactive" th:if="${!u.activo}">● Inactivo</span>
+                        </td>
+                    </tr>
+                    <!-- Mensaje si no hay usuarios -->
+                    <tr th:if="${#lists.isEmpty(usuarios)}">
+                        <td colspan="5" style="text-align:center; color:var(--muted); padding:2rem;">
+                            No hay usuarios registrados.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+</div>
+</body>
+</html>

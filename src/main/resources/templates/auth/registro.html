@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="auth-wrapper">
+    <div class="auth-card">
+
+        <h1>// registro</h1>
+        <p class="subtitle">Crea una cuenta nueva. El rol asignado será USER.</p>
+
+        <form th:action="@{/registro}" th:object="${usuario}" method="post">
+
+            <div class="form-group">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" th:field="*{nombre}"
+                       placeholder="Ej. Andres Jimenez" required/>
+                <div class="error-msg" th:if="${#fields.hasErrors('nombre')}"
+                     th:errors="*{nombre}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" th:field="*{email}"
+                       placeholder="usuario@correo.com" required/>
+                <div class="error-msg" th:if="${#fields.hasErrors('email')}"
+                     th:errors="*{email}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="contrasenia">Contraseña</label>
+                <input type="password" id="contrasenia" th:field="*{contrasenia}"
+                       placeholder="Mínimo 6 caracteres" required/>
+                <div class="error-msg" th:if="${#fields.hasErrors('contrasenia')}"
+                     th:errors="*{contrasenia}"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Crear cuenta</button>
+        </form>
+
+        <div class="auth-footer">
+            ¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

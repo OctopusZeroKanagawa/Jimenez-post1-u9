@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="app-layout">
+
+    <!-- Barra de navegación superior -->
+    <nav class="topbar">
+        <span class="brand">seguridad_web</span>
+        <div class="nav-links">
+            <!-- Enlace al panel admin visible SOLO para ADMIN -->
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">Admin</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-danger"
+                        style="padding:0.3rem 0.8rem; font-size:0.82rem;">
+                    Cerrar sesión
+                </button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="main-content">
+
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">
+            Bienvenido de vuelta, <strong th:text="${usuario}">usuario</strong>.
+        </p>
+
+        <hr class="divider"/>
+
+        <!-- Tarjetas de información de sesión -->
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="label">Usuario autenticado</div>
+                <!-- sec:authentication="name" muestra el email del usuario logueado -->
+                <div class="value" sec:authentication="name">email</div>
+            </div>
+
+            <div class="info-card">
+                <div class="label">Rol asignado</div>
+                <div class="value">
+                    <!-- Mostrar badge según el rol -->
+                    <span class="badge badge-admin"
+                          sec:authorize="hasRole('ADMIN')">ADMIN</span>
+                    <span class="badge badge-user"
+                          sec:authorize="hasRole('USER')">USER</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="label">Estado de sesión</div>
+                <div class="value status-active">● Activa</div>
+            </div>
+        </div>
+
+        <!-- Sección exclusiva para USER -->
+        <div sec:authorize="hasRole('USER')" class="info-card" style="margin-top:1rem;">
+            <div class="label">Área de usuario</div>
+            <p style="margin-top:0.5rem; font-size:0.875rem; color:var(--muted);">
+                Tienes acceso estándar. Solo los administradores pueden ver el panel de gestión.
+            </p>
+        </div>
+
+        <!-- Sección exclusiva para ADMIN -->
+        <div sec:authorize="hasRole('ADMIN')" class="admin-section">
+            <p>🔐 Acceso de administrador habilitado.</p>
+            <a th:href="@{/admin}" class="btn btn-outline">Ir al Panel de Administración →</a>
+        </div>
+
+    </main>
+</div>
+</body>
+</html>
