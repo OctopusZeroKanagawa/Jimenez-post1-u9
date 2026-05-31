@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="auth-wrapper">
+    <div class="auth-card">
+
+        <h1>// login</h1>
+        <p class="subtitle">Ingresa con tu correo y contraseña para continuar.</p>
+
+        <!-- Mensaje de error de credenciales -->
+        <div class="alert alert-error" th:if="${param.error}">
+            Correo o contraseña incorrectos. Intenta de nuevo.
+        </div>
+
+        <!-- Mensaje de sesión cerrada -->
+        <div class="alert alert-info" th:if="${param.logout}">
+            Sesión cerrada correctamente.
+        </div>
+
+        <!-- Mensaje de registro exitoso -->
+        <div class="alert alert-success" th:if="${param.registrado}">
+            Registro exitoso. Ahora puedes iniciar sesión.
+        </div>
+
+        <!--
+            Spring Security procesa automáticamente el POST a /login.
+            Thymeleaf + thymeleaf-extras-springsecurity6 inyecta el token CSRF.
+        -->
+        <form th:action="@{/login}" method="post">
+
+            <div class="form-group">
+                <label for="username">Correo electrónico</label>
+                <input type="email" id="username" name="username"
+                       placeholder="usuario@correo.com" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password"
+                       placeholder="••••••••" required/>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+
+        <div class="auth-footer">
+            ¿No tienes cuenta? <a th:href="@{/registro}">Regístrate aquí</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
